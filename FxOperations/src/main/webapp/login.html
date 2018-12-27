@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login page</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<link href="validate.css" rel="stylesheet">
+<!-- <script type="text/javascript" src="./loginCheck.js"></script> -->
+
+</head>
+<body>
+	<h1 align="center">Login Here</h1>
+
+
+	<form  modelAttribute="login" class="simpleForm" >
+
+		<input type="text" name="email" id="email" placeholder="Enter Email">
+		<p class="error"></p>
+		<input type="password" name="password" id="password"
+			placeholder="Password">
+		<p class="error"></p>
+		<button id="login" onclick="ValidateForm()" >Login</button>
+	</form>
+	 
+
+	<script src="validate.js"></script>
+	
+	
+	<script>
+     $(document).ready(function() {
+    	 
+    	
+
+    $('#login').click(function() {
+          console.log("-->login check page");
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:2018/loginCheck',
+            datatype: "String",
+            data: {
+                email: $("#email").val(),
+                password: $("#password").val()
+               
+            },
+            success: function(response)
+            {
+            	
+                if (response === 'loginSuccess') {
+                	
+                    window.location.replace('http://localhost:2018/loginSuccess.html');
+                }
+                else {
+                	
+                    alert(response);
+                }
+            }
+        });
+        return false; 
+    });
+
+});
+    
+
+</script>
+</body>
+</html>

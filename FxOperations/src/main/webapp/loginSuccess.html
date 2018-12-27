@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+  <meta charset="utf-8">
+  <title>jQuery.getJSON demo</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <style type="text/css">
+    table{
+        width: 50%;
+        margin: 30px 0;
+        border-collapse: collapse;
+    }
+    table, th, td{
+        border: 5px solid #cdcdcd;
+    }
+    table th, table td{
+        padding: 5px;
+        text-align: left;
+    }
+</style>
+  
+
+</head>
+<body>
+
+<table border="1" id="records_table">
+	
+		<tr>
+		<th>id</th>
+		<th>base</th>
+		<th>tocurrency</th>
+		<th>fx-rates</th>
+		</tr>
+	</table>
+<a align="top" href="/login.html">logout</a>
+ <script>
+
+ 	 $(document).ready(function(){
+    $.ajax ({
+        url: 'http://localhost:2018/getFxData',
+        datatype: "json",
+        success: function (response) {
+        	console.log("--> Got response");
+            
+	          var trHTML = ' ';
+	        $.each(response, function (i,item) {
+	            trHTML += '<tr><td>' + item.id + '</td><td>' + item.baseCurrency + '</td><td>' + item.toCurrency + '</td><td>'+ item.fxRate +'</td></tr>';
+	        });
+	        $('#records_table').append(trHTML);
+	    },
+	    error: function(response){
+	    	console.log("--> Error");
+	    	console.log(response);
+	    }
+});
+      });  
+</script>
+</body>
+</html>
